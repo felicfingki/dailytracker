@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Checklist</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Task Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>Daily Checklist</h1>
-        <p>Check off your tasks for the day:</p>
-        
-        <ul id="taskList"></ul>
-        <button onclick="resetTasks()">Reset Checklist</button>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-lg">
+            <h1 class="text-2xl font-bold text-center mb-4">Daily Task Tracker</h1>
+
+            <!-- Task List Container -->
+            <ul id="taskList" class="space-y-4"></ul>
+
+            <!-- Reset Button -->
+            <button onclick="resetTasks()" class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                Reset Tasks
+            </button>
+        </div>
     </div>
 
     <script src="script.js"></script>
