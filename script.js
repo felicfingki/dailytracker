@@ -38,30 +38,42 @@ function renderTasks() {
 
     taskList.forEach((task, taskIndex) => {
         const taskItem = document.createElement("li");
+        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "p-4");
 
         // Display main task title
         const taskTitle = document.createElement("h3");
+        taskTitle.classList.add("text-lg", "font-semibold", "text-blue-500", "mb-2");
         taskTitle.textContent = task.text;
         taskItem.appendChild(taskTitle);
 
         // Subtask list
         const subtaskList = document.createElement("ul");
+        subtaskList.classList.add("space-y-2");
         
         task.subtasks.forEach((subtask, subIndex) => {
             const subtaskItem = document.createElement("li");
+            subtaskItem.classList.add("flex", "justify-between", "items-center", "py-2", "px-3", "bg-gray-100", "rounded-lg");
 
-            // Subtask name (no time)
+            // Subtask name
             const subtaskText = document.createTextNode(subtask.text);
-            subtaskItem.appendChild(subtaskText);
+            const subtaskLabel = document.createElement("span");
+            subtaskLabel.appendChild(subtaskText);
+
+            // Add styling for completed subtasks
+            if (subtask.completed) {
+                subtaskLabel.classList.add("line-through", "text-gray-400");
+            }
+
+            subtaskItem.appendChild(subtaskLabel);
 
             // Checkbox for completion
             const checkBox = document.createElement("input");
             checkBox.type = "checkbox";
             checkBox.checked = subtask.completed;
             checkBox.onclick = () => toggleSubtask(taskIndex, subIndex);
-            subtaskItem.appendChild(checkBox);
+            checkBox.classList.add("form-checkbox", "h-5", "w-5", "text-blue-500");
 
-            subtaskItem.classList.toggle("completed", subtask.completed);
+            subtaskItem.appendChild(checkBox);
             subtaskList.appendChild(subtaskItem);
         });
 
@@ -72,6 +84,7 @@ function renderTasks() {
     // Save tasks to localStorage after rendering
     localStorage.setItem("tasks", JSON.stringify(taskList));
 }
+
 
 
 
