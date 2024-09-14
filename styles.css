@@ -58,7 +58,7 @@ button:hover {
 /* Custom hover effect for checkboxes */
 input[type='checkbox']:hover {
     transform: scale(1.2);
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s;
 }
 
 /* Add this in a <style> tag or external stylesheet */
