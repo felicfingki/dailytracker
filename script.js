@@ -31,51 +31,39 @@ const dailyTasks = [
 // Load tasks from localStorage or use the default dailyTasks
 let taskList = JSON.parse(localStorage.getItem("tasks")) || dailyTasks;
 
-// Function to render the tasks in the HTML
 function renderTasks() {
     const taskListElement = document.getElementById("taskList");
     taskListElement.innerHTML = ""; // Clear current tasks
 
     taskList.forEach((task, taskIndex) => {
         const taskItem = document.createElement("li");
-        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white", "transition-transform", "transform", "hover:scale-105");
+        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white");
 
         // Display main task title
-        const taskTitle = document.createElement("h3");
-        taskTitle.classList.add("text-lg", "font-bold", "text-indigo-500");
-        taskTitle.textContent = task.text;
+        const taskTitle = document.createElement("div");
+        taskTitle.classList.add("flex", "justify-between", "cursor-pointer", "items-center");
+        taskTitle.innerHTML = `<h3 class="text-lg font-bold text-indigo-500">${task.text}</h3>`;
+
+        // Icon to show collapsibility
+        const toggleIcon = document.createElement("span");
+        toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 transition-transform transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>`;
+
+        taskTitle.appendChild(toggleIcon);
         taskItem.appendChild(taskTitle);
 
-        // Calculate progress
-        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
-        const totalSubtasks = task.subtasks.length;
-        const progress = (completedSubtasks / totalSubtasks) * 100;
-
-        // Display progress bar
-        const progressBar = document.createElement("div");
-        progressBar.classList.add("w-full", "bg-gray-200", "rounded-full", "h-4", "mt-2");
-
-        const progressFill = document.createElement("div");
-        progressFill.classList.add("bg-indigo-500", "h-full", "rounded-full");
-        progressFill.style.width = `${progress}%`;
-
-        progressBar.appendChild(progressFill);
-        taskItem.appendChild(progressBar);
-
-        // Subtask list
+        // Subtask list container
         const subtaskList = document.createElement("ul");
-        subtaskList.classList.add("space-y-3", "pl-6", "mt-4");
+        subtaskList.classList.add("space-y-3", "pl-6", "mt-4", "hidden"); // Default hidden
 
         task.subtasks.forEach((subtask, subIndex) => {
             const subtaskItem = document.createElement("li");
             subtaskItem.classList.add("flex", "justify-between", "items-center", "py-2", "px-3", "bg-gray-100", "rounded-lg");
 
-            // Subtask name
+            // Subtask text
             const subtaskText = document.createTextNode(subtask.text);
             const subtaskLabel = document.createElement("span");
             subtaskLabel.appendChild(subtaskText);
 
-            // Add styling for completed subtasks
             if (subtask.completed) {
                 subtaskLabel.classList.add("line-through", "text-gray-400");
             }
@@ -95,11 +83,17 @@ function renderTasks() {
 
         taskItem.appendChild(subtaskList);
         taskListElement.appendChild(taskItem);
+
+        // Toggle subtasks and rotate icon
+        taskTitle.onclick = () => {
+            subtaskList.classList.toggle("hidden");
+            toggleIcon.classList.toggle("rotate-180"); // Rotate the arrow on toggle
+        };
     });
 
-    // Save tasks to localStorage after rendering
     localStorage.setItem("tasks", JSON.stringify(taskList));
 }
+
 
 
 
@@ -122,10 +116,23 @@ function resetTasks() {
     renderTasks();
 }
 
+// Dark mode toggle logic
 const toggleDarkMode = document.getElementById("toggleDarkMode");
 
+// Check if dark mode is saved in localStorage
+if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+}
+
 toggleDarkMode.onclick = () => {
-    document.documentElement.classList.toggle("dark");
+    document.documentElement.classList.toggle('dark');
+    
+    // Save preference in localStorage
+    if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
 };
 
 
