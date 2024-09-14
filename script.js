@@ -37,7 +37,7 @@ function renderTasks() {
 
     taskList.forEach((task, taskIndex) => {
         const taskItem = document.createElement("li");
-        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white");
+        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6","bg-gradient-to-r", "from-green-100", "to-blue-100", "hover:from-green-200", "hover:to-blue-200");
 
         // Display main task title
         const taskTitle = document.createElement("div");
