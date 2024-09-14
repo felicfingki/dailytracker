@@ -39,16 +39,56 @@ function renderTasks() {
         const taskItem = document.createElement("li");
         taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white", "transition-transform", "transform", "hover:scale-105");
 
-        // Display main task title
+        // Display main task title with collapsible toggle
+        const taskHeader = document.createElement("div");
+        taskHeader.classList.add("flex", "justify-between", "items-center", "cursor-pointer");
+
         const taskTitle = document.createElement("h3");
         taskTitle.classList.add("text-lg", "font-bold", "text-indigo-500");
         taskTitle.textContent = task.text;
-        taskItem.appendChild(taskTitle);
 
-        // Calculate progress
-        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
-        const totalSubtasks = task.subtasks.length;
-        const progress = (completedSubtasks / totalSubtasks) * 100;
+        const toggleIcon = document.createElement("span");
+        toggleIcon.textContent = "+"; // Initial icon for expand
+        toggleIcon.classList.add("text-gray-500", "ml-2");
+
+        taskHeader.appendChild(taskTitle);
+        taskHeader.appendChild(toggleIcon);
+        taskItem.appendChild(taskHeader);
+
+        // Subtask list container (hidden by default)
+        const subtaskList = document.createElement("ul");
+        subtaskList.classList.add("space-y-3", "pl-6", "mt-4", "hidden"); // Initially hidden
+
+        task.subtasks.forEach((subtask, subIndex) => {
+            const subtaskItem = document.createElement("li");
+            subtaskItem.classList.add("flex", "justify-between", "items-center", "py-2", "px-3", "bg-gray-100", "rounded-lg");
+
+            // Subtask name
+            const subtaskLabel = document.createElement("span");
+            subtaskLabel.textContent = subtask.text;
+            if (subtask.completed) {
+                subtaskLabel.classList.add("line-through", "text-gray-400");
+            }
+
+            // Checkbox for completion
+            const checkBox = document.createElement("input");
+            checkBox.type = "checkbox";
+            checkBox.checked = subtask.completed;
+            checkBox.onclick = () => toggleSubtask(taskIndex, subIndex);
+            checkBox.classList.add("form-checkbox", "h-5", "w-5", "text-indigo-500");
+
+            subtaskItem.appendChild(subtaskLabel);
+            subtaskItem.appendChild(checkBox);
+            subtaskList.appendChild(subtaskItem);
+        });
+
+        taskItem.appendChild(subtaskList);
+
+        // Toggle subtasks on task header click
+        taskHeader.onclick = () => {
+            subtaskList.classList.toggle("hidden");
+            toggleIcon.textContent = subtaskList.classList.contains("hidden") ? "+" : "-"; // Toggle icon
+        };
 
         // Display progress bar
         const progressBar = document.createElement("div");
@@ -57,14 +97,19 @@ function renderTasks() {
         const progressFill = document.createElement("div");
         progressFill.classList.add("bg-indigo-500", "h-full", "rounded-full");
 
+        // Calculate progress
+        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+        const totalSubtasks = task.subtasks.length;
+        const progress = (completedSubtasks / totalSubtasks) * 100;
+
         // Set the width dynamically based on progress
         progressFill.style.width = `${progress}%`;
 
-        // Step 4: Reset animation before applying the new width
-        progressFill.style.animation = 'none'; // Clear previous animation
+        // Reset animation before applying the new width
+        progressFill.style.animation = 'none';
         setTimeout(() => {
-            progressFill.style.animation = 'progressFill 1s ease-in-out'; // Reapply animation
-        }, 10); // Short delay to ensure reset occurs
+            progressFill.style.animation = 'progressFill 1s ease-in-out';
+        }, 10);
 
         progressBar.appendChild(progressFill);
         taskItem.appendChild(progressBar);
@@ -76,6 +121,7 @@ function renderTasks() {
     // Save tasks to localStorage after rendering
     localStorage.setItem("tasks", JSON.stringify(taskList));
 }
+
 
 
 
