@@ -37,38 +37,38 @@ function renderTasks() {
 
     taskList.forEach((task, taskIndex) => {
         const taskItem = document.createElement("li");
-        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white");
+        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white", "transition-transform", "transform", "hover:scale-105");
 
-        // Display main task title
-        const taskTitle = document.createElement("div");
-        taskTitle.classList.add("flex", "justify-between", "cursor-pointer", "items-center");
-        taskTitle.innerHTML = `<h3 class="text-lg font-bold text-indigo-500">${task.text}</h3>`;
+        // Display main task title with collapsible toggle
+        const taskHeader = document.createElement("div");
+        taskHeader.classList.add("flex", "justify-between", "items-center", "cursor-pointer");
 
-        // Icon to show collapsibility
+        const taskTitle = document.createElement("h3");
+        taskTitle.classList.add("text-lg", "font-bold", "text-indigo-500");
+        taskTitle.textContent = task.text;
+
         const toggleIcon = document.createElement("span");
-        toggleIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 transition-transform transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>`;
+        toggleIcon.textContent = "+"; // Initial icon for expand
+        toggleIcon.classList.add("text-gray-500", "ml-2");
 
-        taskTitle.appendChild(toggleIcon);
-        taskItem.appendChild(taskTitle);
+        taskHeader.appendChild(taskTitle);
+        taskHeader.appendChild(toggleIcon);
+        taskItem.appendChild(taskHeader);
 
-        // Subtask list container
+        // Subtask list container (hidden by default)
         const subtaskList = document.createElement("ul");
-        subtaskList.classList.add("space-y-3", "pl-6", "mt-4", "hidden"); // Default hidden
+        subtaskList.classList.add("space-y-3", "pl-6", "mt-4", "hidden"); // Initially hidden
 
         task.subtasks.forEach((subtask, subIndex) => {
             const subtaskItem = document.createElement("li");
             subtaskItem.classList.add("flex", "justify-between", "items-center", "py-2", "px-3", "bg-gray-100", "rounded-lg");
 
-            // Subtask text
-            const subtaskText = document.createTextNode(subtask.text);
+            // Subtask name
             const subtaskLabel = document.createElement("span");
-            subtaskLabel.appendChild(subtaskText);
-
+            subtaskLabel.textContent = subtask.text;
             if (subtask.completed) {
                 subtaskLabel.classList.add("line-through", "text-gray-400");
             }
-
-            subtaskItem.appendChild(subtaskLabel);
 
             // Checkbox for completion
             const checkBox = document.createElement("input");
@@ -77,20 +77,48 @@ function renderTasks() {
             checkBox.onclick = () => toggleSubtask(taskIndex, subIndex);
             checkBox.classList.add("form-checkbox", "h-5", "w-5", "text-indigo-500");
 
+            subtaskItem.appendChild(subtaskLabel);
             subtaskItem.appendChild(checkBox);
             subtaskList.appendChild(subtaskItem);
         });
 
         taskItem.appendChild(subtaskList);
-        taskListElement.appendChild(taskItem);
 
-        // Toggle subtasks and rotate icon
-        taskTitle.onclick = () => {
-            //subtaskList.classList.toggle("hidden");
-            toggleIcon.classList.toggle("rotate-180"); // Rotate the arrow on toggle
+        // Toggle subtasks on task header click
+        taskHeader.onclick = () => {
+            subtaskList.classList.toggle("hidden");
+            toggleIcon.textContent = subtaskList.classList.contains("hidden") ? "+" : "-"; // Toggle icon
         };
+
+        // Display progress bar
+        const progressBar = document.createElement("div");
+        progressBar.classList.add("w-full", "bg-gray-200", "rounded-full", "h-4", "mt-2");
+
+        const progressFill = document.createElement("div");
+        progressFill.classList.add("bg-indigo-500", "h-full", "rounded-full");
+
+        // Calculate progress
+        const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+        const totalSubtasks = task.subtasks.length;
+        const progress = (completedSubtasks / totalSubtasks) * 100;
+
+        // Set the width dynamically based on progress
+        progressFill.style.width = `${progress}%`;
+
+        // Reset animation before applying the new width
+        progressFill.style.animation = 'none';
+        setTimeout(() => {
+            progressFill.style.animation = 'progressFill 1s ease-in-out';
+        }, 10);
+
+        progressBar.appendChild(progressFill);
+        taskItem.appendChild(progressBar);
+
+        // Append the task to the task list
+        taskListElement.appendChild(taskItem);
     });
 
+    // Save tasks to localStorage after rendering
     localStorage.setItem("tasks", JSON.stringify(taskList));
 }
 
