@@ -4,25 +4,25 @@ const dailyTasks = [
     {
         text: "Task 1",
         subtasks: [
-            { text: "SubTask1", completed: false },
-            { text: "SubTask2",  completed: false },
-            { text: "SubTask3",  completed: false }
+            { text: "A", completed: false },
+            { text: "B",  completed: false },
+            { text: "C",  completed: false }
         ]
     },
     {
         text: "Task 2",
         subtasks: [
-            { text: "SubTask1",  completed: false },
-            { text: "SubTask2", completed: false },
-            { text: "SubTask3", completed: false }
+            { text: "D",  completed: false },
+            { text: "E", completed: false },
+            { text: "F", completed: false }
         ]
     },
     {
         text: "Task 3",
         subtasks: [
-            { text: "SubTask1", completed: false },
-            { text: "SubTask2", completed: false },
-            { text: "SubTask3", completed: false }
+            { text: "G", completed: false },
+            { text: "H", completed: false },
+            { text: "I", completed: false }
         ]
     }
 ];
