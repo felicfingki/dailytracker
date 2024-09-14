@@ -2,27 +2,27 @@
 // Updated structure with subtasks and time buckets
 const dailyTasks = [
     {
-        text: "Morning Routine",
+        text: "Task 1",
         subtasks: [
-            { text: "Exercise", time: "7:00 AM - 7:30 AM", completed: false },
-            { text: "Breakfast", time: "7:30 AM - 8:00 AM", completed: false },
-            { text: "Meditation", time: "8:00 AM - 8:15 AM", completed: false }
+            { text: "SubTask1", completed: false },
+            { text: "SubTask2",  completed: false },
+            { text: "SubTask3",  completed: false }
         ]
     },
     {
-        text: "Work Tasks",
+        text: "Task 2",
         subtasks: [
-            { text: "Emails", time: "9:00 AM - 9:30 AM", completed: false },
-            { text: "Meeting", time: "10:00 AM - 11:00 AM", completed: false },
-            { text: "Code Review", time: "11:00 AM - 12:00 PM", completed: false }
+            { text: "SubTask1",  completed: false },
+            { text: "SubTask2", completed: false },
+            { text: "SubTask3", completed: false }
         ]
     },
     {
-        text: "Evening Routine",
+        text: "Task 3",
         subtasks: [
-            { text: "Reading", time: "7:00 PM - 7:30 PM", completed: false },
-            { text: "Plan Tomorrow", time: "7:30 PM - 8:00 PM", completed: false },
-            { text: "Relax", time: "8:00 PM - 9:00 PM", completed: false }
+            { text: "SubTask1", completed: false },
+            { text: "SubTask2", completed: false },
+            { text: "SubTask3", completed: false }
         ]
     }
 ];
@@ -51,7 +51,7 @@ function renderTasks() {
             const subtaskItem = document.createElement("li");
 
             // Subtask name and time
-            const subtaskText = document.createTextNode(`${subtask.text} (${subtask.time})`);
+            const subtaskText = document.createTextNode(`${subtask.text}`);
             subtaskItem.appendChild(subtaskText);
 
             // Checkbox for completion
