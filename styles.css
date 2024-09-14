@@ -55,6 +55,27 @@ button:hover {
     background-color: #0056b3;
 }
 
-input[type="checkbox"] {
+/* Custom hover effect for checkboxes */
+input[type='checkbox']:hover {
     transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
 }
+
+/* Add this in a <style> tag or external stylesheet */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Sticky task headers */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+}
+
