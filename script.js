@@ -38,18 +38,29 @@ function renderTasks() {
 
     taskList.forEach((task, taskIndex) => {
         const taskItem = document.createElement("li");
-        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "p-4");
+        taskItem.classList.add("border", "border-gray-300", "rounded-lg", "shadow-md", "p-6", "bg-white", "transition-transform", "transform", "hover:scale-105");
 
-        // Display main task title
+        // Display main task title with collapsible toggle
+        const taskHeader = document.createElement("div");
+        taskHeader.classList.add("flex", "justify-between", "items-center", "cursor-pointer");
+
         const taskTitle = document.createElement("h3");
-        taskTitle.classList.add("text-lg", "font-semibold", "text-blue-500", "mb-2");
+        taskTitle.classList.add("text-lg", "font-bold", "text-indigo-500");
         taskTitle.textContent = task.text;
-        taskItem.appendChild(taskTitle);
 
-        // Subtask list
+        // Icon to show the collapsibility
+        const arrowIcon = document.createElement("span");
+        arrowIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>`;
+        arrowIcon.classList.add("transition-transform", "transform");
+
+        taskHeader.appendChild(taskTitle);
+        taskHeader.appendChild(arrowIcon);
+        taskItem.appendChild(taskHeader);
+
+        // Subtask list container (hidden by default)
         const subtaskList = document.createElement("ul");
-        subtaskList.classList.add("space-y-2");
-        
+        subtaskList.classList.add("space-y-3", "pl-6", "mt-4", "hidden");
+
         task.subtasks.forEach((subtask, subIndex) => {
             const subtaskItem = document.createElement("li");
             subtaskItem.classList.add("flex", "justify-between", "items-center", "py-2", "px-3", "bg-gray-100", "rounded-lg");
@@ -71,7 +82,7 @@ function renderTasks() {
             checkBox.type = "checkbox";
             checkBox.checked = subtask.completed;
             checkBox.onclick = () => toggleSubtask(taskIndex, subIndex);
-            checkBox.classList.add("form-checkbox", "h-5", "w-5", "text-blue-500");
+            checkBox.classList.add("form-checkbox", "h-5", "w-5", "text-indigo-500");
 
             subtaskItem.appendChild(checkBox);
             subtaskList.appendChild(subtaskItem);
@@ -79,11 +90,18 @@ function renderTasks() {
 
         taskItem.appendChild(subtaskList);
         taskListElement.appendChild(taskItem);
+
+        // Toggle subtasks on task header click
+        taskHeader.onclick = () => {
+            subtaskList.classList.toggle("hidden");
+            arrowIcon.classList.toggle("rotate-180");  // Rotate icon when expanding
+        };
     });
 
     // Save tasks to localStorage after rendering
     localStorage.setItem("tasks", JSON.stringify(taskList));
 }
+
 
 
 
@@ -103,6 +121,12 @@ function resetTasks() {
     }));
     renderTasks();
 }
+
+const toggleDarkMode = document.getElementById("toggleDarkMode");
+
+toggleDarkMode.onclick = () => {
+    document.documentElement.classList.toggle("dark");
+};
 
 
 // Initial render when the page loads
