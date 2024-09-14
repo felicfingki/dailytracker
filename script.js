@@ -117,23 +117,21 @@ function resetTasks() {
 }
 
 // Dark mode toggle logic
-const toggleDarkMode = document.getElementById("toggleDarkMode");
+const toggleDarkMode = () => {
+    document.documentElement.classList.toggle('dark');
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+};
 
-// Check if dark mode is saved in localStorage
-if (localStorage.getItem('theme') === 'dark') {
+// Check if dark mode was enabled previously
+const savedDarkMode = localStorage.getItem('darkMode');
+if (savedDarkMode === 'enabled') {
     document.documentElement.classList.add('dark');
 }
 
-toggleDarkMode.onclick = () => {
-    document.documentElement.classList.toggle('dark');
-    
-    // Save preference in localStorage
-    if (document.documentElement.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-    } else {
-        localStorage.setItem('theme', 'light');
-    }
-};
+// Add event listener for dark mode toggle button
+document.getElementById('toggleDarkMode').addEventListener('click', toggleDarkMode);
+
 
 
 // Initial render when the page loads
