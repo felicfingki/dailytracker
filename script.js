@@ -50,8 +50,8 @@ function renderTasks() {
         task.subtasks.forEach((subtask, subIndex) => {
             const subtaskItem = document.createElement("li");
 
-            // Subtask name and time
-            const subtaskText = document.createTextNode(`${subtask.text}`);
+            // Subtask name (no time)
+            const subtaskText = document.createTextNode(subtask.text);
             subtaskItem.appendChild(subtaskText);
 
             // Checkbox for completion
@@ -74,11 +74,13 @@ function renderTasks() {
 }
 
 
+
 // Function to toggle a task's completion
 function toggleSubtask(taskIndex, subIndex) {
     taskList[taskIndex].subtasks[subIndex].completed = !taskList[taskIndex].subtasks[subIndex].completed;
     renderTasks();
 }
+
 
 // Function to reset tasks to default state for the day
 function resetTasks() {
@@ -88,6 +90,7 @@ function resetTasks() {
     }));
     renderTasks();
 }
+
 
 // Initial render when the page loads
 renderTasks();
