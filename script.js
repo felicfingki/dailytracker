@@ -86,7 +86,7 @@ function renderTasks() {
 
         // Toggle subtasks and rotate icon
         taskTitle.onclick = () => {
-            subtaskList.classList.toggle("hidden");
+            //subtaskList.classList.toggle("hidden");
             toggleIcon.classList.toggle("rotate-180"); // Rotate the arrow on toggle
         };
     });
