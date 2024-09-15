@@ -1,10 +1,28 @@
 // Sample data: list of characters and their respective levels
 const characters = [
-    { name: 'Elesis', level: 85, tasks: ['Dungeon Run', 'PvP', 'Boss Hunt'] },
-    { name: 'Lire', level: 80, tasks: ['Dungeon Run', 'PvP', 'Boss Hunt'] },
-    { name: 'Arme', level: 85, tasks: ['Dungeon Run', 'PvP', 'Boss Hunt'] },
-    { name: 'Lass', level: 78, tasks: ['Dungeon Run', 'PvP', 'Boss Hunt'] },
-    { name: 'Ronan', level: 85, tasks: ['Dungeon Run', 'PvP', 'Boss Hunt'] },
+    { name: 'Elesis', level: 74, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Lire', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Arme', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Lass', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Ryan', level: 37, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Ronan', level: 71, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Amy', level: 37, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Jin', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Sieghart', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Mari', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Dio', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Zero', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Ley', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Rufus', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Rin', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Asin', level: 39, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Lime', level: 37, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Edel', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Veigas', level: 53, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Decanee', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Ai', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Kallia', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
+    { name: 'Uno', level: 85, tasks: ['Crucible', 'Sanctum Of Destruction', 'Wizard Labirynth','Berkas Lair'] },
     // Add other characters and levels
 ];
 
